@@ -122,7 +122,9 @@
   
   self.weekdaySymbols = formatter.shortWeekdaySymbols;
   
+
   [self.collectionView reloadData];
+
 }
 
 - (void)registerUICollectionViewClasses {
@@ -267,7 +269,9 @@
   }
 
   if (self.selectedDate && cell.enabled) {
+     
     [cell setSelected:[date isEqualToDate:self.selectedDate]];
+  
   }
   
   return cell;
@@ -280,7 +284,7 @@
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-  return [self canSelectItemAtIndexPath:indexPath];
+	return [self canSelectItemAtIndexPath:indexPath];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -292,7 +296,9 @@
     self.selectedDate = dayCell.date;
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(calendarView:didSelectDate:)]) {
-      [self.delegate calendarView:self didSelectDate:dayCell.date];
+        [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+
+        [self.delegate calendarView:self didSelectDate:dayCell.date];
     }
     
     [self.collectionView reloadData];
